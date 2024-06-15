@@ -23,8 +23,8 @@ public class Sala{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-    @Column private int idEvento;
-    @Column private STATUS_SALA statusSala;
+    private int idEvento;
+    private STATUS_SALA statusSala;
 
     @Convert(converter = AsientosMapaConverter.class)
     @Column private Map<String, SEAT_STATUS> asientosMapa;

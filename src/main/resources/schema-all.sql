@@ -21,6 +21,45 @@ CREATE TABLE SALAS (
   statusSala VARCHAR(60)
 );
 
+CREATE TABLE USERS (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(200) ,
+  email VARCHAR(70) UNIQUE,
+  cellPhone VARCHAR(20) ,
+  status VARCHAR(20)
+);
+
+
+CREATE TABLE PAYMENTS (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  amount FLOAT(200) ,
+  timestamp VARCHAR(70) ,
+  tipoPago VARCHAR(50) ,
+  description VARCHAR(70),
+  referenceDetails VARCHAR(70),
+  processed varchar(20)
+);
+
+CREATE TABLE EVENTS (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  tipoEvento VARCHAR(50) ,
+  nombreEvento VARCHAR(50) ,
+  horarioInicio VARCHAR(50) ,
+  horarioFin VARCHAR(50) ,
+  audioIdiomaEvento VARCHAR(50),
+  subtitulosIdiomaEvento VARCHAR(50),
+  classification VARCHAR(50),
+  comments VARCHAR(50)
+);
+
+CREATE TABLE BOOKINGS (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  idTheatre INT,
+  idSala INT,
+  idUsuario INT,
+  idPayment INT,
+  comments VARCHAR(50)
+);
 
 /*
 CREATE TABLE RESERVATIONS (

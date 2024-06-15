@@ -1,13 +1,11 @@
 package com.coherent.solutions.hotel.reservations.configuration;
 
-import com.coherent.solutions.hotel.reservations.entity.Reservation;
-import com.coherent.solutions.hotel.reservations.entity.Sala;
-import com.coherent.solutions.hotel.reservations.entity.Theatre;
+import com.coherent.solutions.hotel.reservations.entity.*;
 import com.coherent.solutions.hotel.reservations.enums.SEAT_STATUS;
 import com.coherent.solutions.hotel.reservations.enums.STATUS_SALA;
-import com.coherent.solutions.hotel.reservations.repository.ReservationRepository;
-import com.coherent.solutions.hotel.reservations.repository.SalaRepository;
-import com.coherent.solutions.hotel.reservations.repository.TheatreRepository;
+import com.coherent.solutions.hotel.reservations.enums.TIPO_EVENTO;
+import com.coherent.solutions.hotel.reservations.enums.TIPO_PAGO;
+import com.coherent.solutions.hotel.reservations.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -15,6 +13,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -29,6 +28,16 @@ public class ReservationGenerator {
     @Autowired
     private SalaRepository salaRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
+    @Autowired
+    private EventRepository eventRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
     Sala sala1 = new Sala();
     Sala sala2 = new Sala();
     Map<String, SEAT_STATUS>asientosMapa1 = new HashMap<>();
@@ -37,11 +46,71 @@ public class ReservationGenerator {
     Theatre theatre2 = new Theatre();
     List<Sala> salasCine1 = new ArrayList<>();
     List<Sala> salasCine2 = new ArrayList<>();
+    User user1 = new User();
+    User user2 = new User();
+    Payment payment1 = new Payment();
+    Evento evento1 = new Evento();
+
+    Booking bookingAquaman2 = new Booking();
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
         generateInitialReservationsVersionCustomizedReservation();
         createTheatres();
         createSalas();
+        createUsers();
+        createPayments();
+        createEvents();
+        createBooking();
+    }
+
+    private void createBooking() {
+        bookingAquaman2.setIdSala(sala1.getId());
+        bookingAquaman2.setIdUsuario(user1.getId());
+        bookingAquaman2.setIdTheatre(theatre1.getId());
+        bookingAquaman2.setIdPayment(payment1.getId());
+        bookingAquaman2.setComments("NA");
+        Booking bookingCreated = bookingRepository.save(bookingAquaman2);
+        log.info("bookingCreated : " +bookingCreated );
+    }
+
+    private void createEvents() {
+        evento1.setTipoEvento(TIPO_EVENTO.PELICULA);
+        evento1.setNombreEvento("Aquaman 2");
+        evento1.setHorarioInicio(LocalDateTime.of(2024, 06, 16, 16, 0));
+        evento1.setHorarioFin(LocalDateTime.of(2024, 06, 16, 18, 0));
+        evento1.setAudioIdiomaEvento("English");
+        evento1.setSubtitulosIdiomaEvento("Spanish");
+        evento1.setClassification("Science fiction");
+        evento1.setComments("NA");
+        Evento eventoCreated = eventRepository.save(evento1);
+        log.info("eventoCreated: " + eventoCreated);
+    }
+
+    private void createPayments() {
+        payment1.setAmount(254.65f);
+        payment1.setTimestamp(LocalDateTime.now());
+        payment1.setTipoPago(TIPO_PAGO.TARJETA_CREDITO);
+        payment1.setDescription("User paid with credit card online");
+        payment1.setReferenceDetails("Citibank_REF1234567890");
+        payment1.setProcessed("Txn confirmed");
+        Payment paymentCreated = paymentRepository.save(payment1);
+        log.info("paymentCreated: " + paymentCreated);
+    }
+
+    private void createUsers() {
+        user1.setName("Said Olano");
+        user1.setStatus("Enabled");
+        user1.setEmail("josesaid@gmail.com");
+        user1.setCellPhone("33-3252-1153");
+        User userCreated = userRepository.save(user1);
+        log.info("userCreated: " + userCreated);
+
+        user2.setName("Juana la cubana");
+        user2.setStatus("Disabled");
+        user2.setEmail("juana_la_cubana@gmail.com");
+        user2.setCellPhone("52-9876-4541");
+        User userCreated2 = userRepository.save(user2);
+        log.info("userCreated2: " + userCreated2);
     }
 
 
