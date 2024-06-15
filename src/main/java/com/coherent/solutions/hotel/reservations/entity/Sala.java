@@ -1,5 +1,7 @@
 package com.coherent.solutions.hotel.reservations.entity;
 
+import com.coherent.solutions.hotel.reservations.converter.AsientosMapaConverter;
+import com.coherent.solutions.hotel.reservations.converter.SalaConverter;
 import com.coherent.solutions.hotel.reservations.enums.SEAT_STATUS;
 import com.coherent.solutions.hotel.reservations.enums.STATUS_SALA;
 import jakarta.persistence.*;
@@ -21,9 +23,9 @@ public class Sala{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-
     @Column private int idEvento;
-
-    @Column @JdbcTypeCode(SqlTypes.JSON) private Map<String, SEAT_STATUS> asientosMapa;
     @Column private STATUS_SALA statusSala;
+
+    @Convert(converter = AsientosMapaConverter.class)
+    @Column private Map<String, SEAT_STATUS> asientosMapa;
 }

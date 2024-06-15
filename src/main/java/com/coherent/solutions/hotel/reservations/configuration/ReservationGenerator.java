@@ -1,7 +1,13 @@
 package com.coherent.solutions.hotel.reservations.configuration;
 
 import com.coherent.solutions.hotel.reservations.entity.Reservation;
+import com.coherent.solutions.hotel.reservations.entity.Sala;
+import com.coherent.solutions.hotel.reservations.entity.Theatre;
+import com.coherent.solutions.hotel.reservations.enums.SEAT_STATUS;
+import com.coherent.solutions.hotel.reservations.enums.STATUS_SALA;
 import com.coherent.solutions.hotel.reservations.repository.ReservationRepository;
+import com.coherent.solutions.hotel.reservations.repository.SalaRepository;
+import com.coherent.solutions.hotel.reservations.repository.TheatreRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -17,9 +23,89 @@ public class ReservationGenerator {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    @Autowired
+    private TheatreRepository theatreRepository;
+
+    @Autowired
+    private SalaRepository salaRepository;
+
+    Sala sala1 = new Sala();
+    Sala sala2 = new Sala();
+    Map<String, SEAT_STATUS>asientosMapa1 = new HashMap<>();
+    Map<String, SEAT_STATUS>asientosMapa2 = new HashMap<>();
+    Theatre theatre1 = new Theatre();
+    Theatre theatre2 = new Theatre();
+    List<Sala> salasCine1 = new ArrayList<>();
+    List<Sala> salasCine2 = new ArrayList<>();
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
         generateInitialReservationsVersionCustomizedReservation();
+        createTheatres();
+        createSalas();
+    }
+
+
+    private void createSalas() {
+        sala1.setId(1);
+        sala1.setIdEvento(1);
+        sala1.setStatusSala(STATUS_SALA.ABIERTA);
+
+        asientosMapa1.put("A1", SEAT_STATUS.RESERVED);
+        asientosMapa1.put("A2", SEAT_STATUS.FREE);
+        asientosMapa1.put("A3", SEAT_STATUS.RESERVED);
+        asientosMapa1.put("A4", SEAT_STATUS.FREE);
+        sala1.setAsientosMapa(asientosMapa1);
+        Sala salaCreated1 = salaRepository.save(sala1);
+        log.info("salaCreated1: " + salaCreated1);
+
+
+        sala2.setId(2);
+        sala2.setIdEvento(2);
+        sala2.setStatusSala(STATUS_SALA.EN_REPARACION);
+
+        asientosMapa2.put("A1", SEAT_STATUS.FREE);
+        asientosMapa2.put("A2", SEAT_STATUS.FREE);
+        asientosMapa2.put("A3", SEAT_STATUS.FREE);
+        asientosMapa2.put("A4", SEAT_STATUS.RESERVED);
+        sala2.setAsientosMapa(asientosMapa2);
+        Sala salaCreated2 = salaRepository.save(sala2);
+        log.info("salaCreated2: " + salaCreated2);
+    }
+
+    private void createTheatres() {
+
+        theatre1.setName("Cinepolis Galerias");
+        theatre1.setAddress("Av Vallarta 5091");
+        theatre1.setCity("Zapopan");
+        theatre1.setState("Jalisco");
+        theatre1.setCountry("Mexico");
+
+        sala1.setId(1);
+        sala1.setIdEvento(1);
+        sala1.setStatusSala(STATUS_SALA.ABIERTA);
+
+        sala2.setId(2);
+        sala2.setIdEvento(2);
+        sala2.setStatusSala(STATUS_SALA.EN_REPARACION);
+        Sala salaCreated2 = salaRepository.save(sala2);
+        log.info("salaCreated2: " + salaCreated2);
+
+        salasCine1.add(sala1);
+        salasCine1.add(sala2);
+        theatre1.setSalas(salasCine1);
+
+        Theatre theatreCreated = theatreRepository.save(theatre1);
+        log.info("theatreCreated: " +theatreCreated);
+
+        theatre2.setName("Cinepolis Valle Oriente");
+        theatre2.setAddress("Av Oriente 8529");
+        theatre2.setCity("GDL");
+        theatre2.setState("Jalisco");
+        theatre2.setCountry("Mexico");
+        theatre2.setSalas(salasCine1);
+
+        Theatre theatreCreated2 = theatreRepository.save(theatre2);
+        log.info("theatreCreated2: " +theatreCreated2);
     }
 
     private void generateInitialReservationsVersionCustomizedReservation() {

@@ -5,4 +5,5 @@ public enum STATUS_SALA {
     CLAUSURADA,
     EN_REPARACION,
     OTRO
+
 }

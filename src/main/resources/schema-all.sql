@@ -6,7 +6,20 @@ CREATE TABLE RESERVATIONS (
   reservationDates JSON
 );
 
-select * from RESERVATIONS;
+CREATE TABLE THEATRES (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(200) UNIQUE,
+  address VARCHAR(200) ,
+  city VARCHAR(40) ,
+  state VARCHAR(40) ,
+  country VARCHAR(40)
+);
+
+CREATE TABLE SALAS (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  idEvento int,
+  statusSala VARCHAR(60)
+);
 
 
 /*
