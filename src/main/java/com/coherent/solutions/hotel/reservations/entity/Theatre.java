@@ -21,7 +21,7 @@ public class Theatre {
     private String city;
     private String state;
     private String country;
-    private List<Sala>Salas;
+    //private List<Sala>Salas;
 }
 
 
