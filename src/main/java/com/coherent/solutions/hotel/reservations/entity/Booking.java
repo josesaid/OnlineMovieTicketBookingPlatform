@@ -1,9 +1,7 @@
 package com.coherent.solutions.hotel.reservations.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.coherent.solutions.hotel.reservations.enums.BOOKING_STATUS;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,4 +22,8 @@ public class Booking{
     private int idUsuario;
     private int idPayment;
     private String comments;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
+    private BOOKING_STATUS status;
 }

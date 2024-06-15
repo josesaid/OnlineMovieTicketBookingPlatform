@@ -20,7 +20,10 @@ public class Evento {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="tipoEvento")
     private TIPO_EVENTO tipoEvento;
+
     private String nombreEvento;
     private LocalDateTime horarioInicio;
     private LocalDateTime horarioFin;

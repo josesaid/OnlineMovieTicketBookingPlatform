@@ -18,7 +18,8 @@ CREATE TABLE THEATRES (
 CREATE TABLE SALAS (
   id INT AUTO_INCREMENT PRIMARY KEY,
   idEvento int,
-  statusSala VARCHAR(60)
+  status VARCHAR(60),
+  asientosMapa VARCHAR(200)
 );
 
 CREATE TABLE USERS (
@@ -37,7 +38,7 @@ CREATE TABLE PAYMENTS (
   tipoPago VARCHAR(50) ,
   description VARCHAR(70),
   referenceDetails VARCHAR(70),
-  processed varchar(20)
+  status varchar(20)
 );
 
 CREATE TABLE EVENTS (
@@ -58,7 +59,8 @@ CREATE TABLE BOOKINGS (
   idSala INT,
   idUsuario INT,
   idPayment INT,
-  comments VARCHAR(50)
+  comments VARCHAR(50),
+  status  VARCHAR(50)
 );
 
 /*

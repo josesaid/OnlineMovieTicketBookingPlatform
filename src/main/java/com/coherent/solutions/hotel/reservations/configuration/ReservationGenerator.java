@@ -1,10 +1,7 @@
 package com.coherent.solutions.hotel.reservations.configuration;
 
 import com.coherent.solutions.hotel.reservations.entity.*;
-import com.coherent.solutions.hotel.reservations.enums.SEAT_STATUS;
-import com.coherent.solutions.hotel.reservations.enums.STATUS_SALA;
-import com.coherent.solutions.hotel.reservations.enums.TIPO_EVENTO;
-import com.coherent.solutions.hotel.reservations.enums.TIPO_PAGO;
+import com.coherent.solutions.hotel.reservations.enums.*;
 import com.coherent.solutions.hotel.reservations.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +37,8 @@ public class ReservationGenerator {
 
     Sala sala1 = new Sala();
     Sala sala2 = new Sala();
+    Sala salaCreated1 = new Sala();
+    Sala salaCreated2 = new Sala();
     Map<String, SEAT_STATUS>asientosMapa1 = new HashMap<>();
     Map<String, SEAT_STATUS>asientosMapa2 = new HashMap<>();
     Theatre theatre1 = new Theatre();
@@ -69,6 +68,7 @@ public class ReservationGenerator {
         bookingAquaman2.setIdTheatre(theatre1.getId());
         bookingAquaman2.setIdPayment(payment1.getId());
         bookingAquaman2.setComments("NA");
+        bookingAquaman2.setStatus(BOOKING_STATUS.CONFIRMED);
         Booking bookingCreated = bookingRepository.save(bookingAquaman2);
         log.info("bookingCreated : " +bookingCreated );
     }
@@ -92,21 +92,21 @@ public class ReservationGenerator {
         payment1.setTipoPago(TIPO_PAGO.TARJETA_CREDITO);
         payment1.setDescription("User paid with credit card online");
         payment1.setReferenceDetails("Citibank_REF1234567890");
-        payment1.setProcessed("Txn confirmed");
+        payment1.setStatus(PAYMENT_STATUS.CHARGED);
         Payment paymentCreated = paymentRepository.save(payment1);
         log.info("paymentCreated: " + paymentCreated);
     }
 
     private void createUsers() {
         user1.setName("Said Olano");
-        user1.setStatus("Enabled");
+        user1.setStatus(USER_STATUS.ENABLED);
         user1.setEmail("josesaid@gmail.com");
         user1.setCellPhone("33-3252-1153");
         User userCreated = userRepository.save(user1);
         log.info("userCreated: " + userCreated);
 
         user2.setName("Juana la cubana");
-        user2.setStatus("Disabled");
+        user2.setStatus(USER_STATUS.DISABLED);
         user2.setEmail("juana_la_cubana@gmail.com");
         user2.setCellPhone("52-9876-4541");
         User userCreated2 = userRepository.save(user2);
@@ -117,27 +117,27 @@ public class ReservationGenerator {
     private void createSalas() {
         sala1.setId(1);
         sala1.setIdEvento(1);
-        sala1.setStatusSala(STATUS_SALA.ABIERTA);
+        sala1.setStatus(STATUS_SALA.ABIERTA);
 
         asientosMapa1.put("A1", SEAT_STATUS.RESERVED);
         asientosMapa1.put("A2", SEAT_STATUS.FREE);
         asientosMapa1.put("A3", SEAT_STATUS.RESERVED);
         asientosMapa1.put("A4", SEAT_STATUS.FREE);
         sala1.setAsientosMapa(asientosMapa1);
-        Sala salaCreated1 = salaRepository.save(sala1);
+        salaCreated1 = salaRepository.save(sala1);
         log.info("salaCreated1: " + salaCreated1);
 
 
         sala2.setId(2);
         sala2.setIdEvento(2);
-        sala2.setStatusSala(STATUS_SALA.EN_REPARACION);
+        sala2.setStatus(STATUS_SALA.EN_REPARACION);
 
         asientosMapa2.put("A1", SEAT_STATUS.FREE);
         asientosMapa2.put("A2", SEAT_STATUS.FREE);
         asientosMapa2.put("A3", SEAT_STATUS.FREE);
         asientosMapa2.put("A4", SEAT_STATUS.RESERVED);
         sala2.setAsientosMapa(asientosMapa2);
-        Sala salaCreated2 = salaRepository.save(sala2);
+        salaCreated2 = salaRepository.save(sala2);
         log.info("salaCreated2: " + salaCreated2);
     }
 
@@ -151,16 +151,16 @@ public class ReservationGenerator {
 
         sala1.setId(1);
         sala1.setIdEvento(1);
-        sala1.setStatusSala(STATUS_SALA.ABIERTA);
+        sala1.setStatus(STATUS_SALA.ABIERTA);
 
         sala2.setId(2);
         sala2.setIdEvento(2);
-        sala2.setStatusSala(STATUS_SALA.EN_REPARACION);
+        sala2.setStatus(STATUS_SALA.EN_REPARACION);
         Sala salaCreated2 = salaRepository.save(sala2);
         log.info("salaCreated2: " + salaCreated2);
 
-        salasCine1.add(sala1);
-        salasCine1.add(sala2);
+        salasCine1.add(salaCreated1);
+        salasCine1.add(salaCreated2);
         theatre1.setSalas(salasCine1);
 
         Theatre theatreCreated = theatreRepository.save(theatre1);

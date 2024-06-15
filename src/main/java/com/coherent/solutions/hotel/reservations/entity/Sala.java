@@ -24,7 +24,10 @@ public class Sala{
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
     private int idEvento;
-    private STATUS_SALA statusSala;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
+    private STATUS_SALA status;
 
     @Convert(converter = AsientosMapaConverter.class)
     @Column private Map<String, SEAT_STATUS> asientosMapa;
