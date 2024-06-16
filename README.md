@@ -2,7 +2,11 @@
 
 ### Reference Documentation
 
-This Hotel Reservations API was created by using spring 3.2.3.
+http://localhost:8080/publicissapient/cinemaXYZ/swagger-ui/index.html
+
+http://localhost:8080/publicissapient/cinemaXYZ/api-docs
+
+This movie Reservations API was created by using spring 3.2.3.
 Notes about the application:
 * In could be easily integrated with MySQL as RDBMS by only uncommenting some lines on the application.properties file.
 * I followed the Domain Driven Design methodology to name the classes and packages.

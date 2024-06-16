@@ -1,6 +1,6 @@
 package com.coherent.solutions.hotel.reservations.converter;
 
-import com.coherent.solutions.hotel.reservations.entity.Sala;
+import com.coherent.solutions.hotel.reservations.entity.Room;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -8,12 +8,11 @@ import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
 @Converter(autoApply = true)
-public class SalaConverter implements AttributeConverter<List<Sala>,String> {
+public class SalaConverter implements AttributeConverter<List<Room>,String> {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     public SalaConverter(){
@@ -21,7 +20,7 @@ public class SalaConverter implements AttributeConverter<List<Sala>,String> {
     }
 
     @Override
-    public String convertToDatabaseColumn(List<Sala> salasList) {
+    public String convertToDatabaseColumn(List<Room> salasList) {
         String salasJSON = null;
         try{
             salasJSON = objectMapper.writeValueAsString(salasList);
@@ -31,8 +30,8 @@ public class SalaConverter implements AttributeConverter<List<Sala>,String> {
         return salasJSON;
     }
 
-    public List<Sala> convertToEntityAttribute(String salasJSON) {
-        List<Sala> salasList = null;
+    public List<Room> convertToEntityAttribute(String salasJSON) {
+        List<Room> salasList = null;
         try {
             salasList = objectMapper.readValue(salasJSON, new TypeReference<>() {});
         } catch (final Exception e) {

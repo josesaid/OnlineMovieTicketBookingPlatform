@@ -1,6 +1,5 @@
 package com.coherent.solutions.hotel.reservations.entity;
 
-import com.coherent.solutions.hotel.reservations.converter.ReservationConverter;
 import com.coherent.solutions.hotel.reservations.converter.SalaConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,7 +24,7 @@ public class Theatre {
     private String country;
 
     @Convert(converter = SalaConverter.class)
-    private List<Sala>Salas;
+    private List<Room>Salas;
 }
 
 

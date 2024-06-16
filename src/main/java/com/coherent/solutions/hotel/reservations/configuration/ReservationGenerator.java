@@ -35,16 +35,16 @@ public class ReservationGenerator {
     @Autowired
     private BookingRepository bookingRepository;
 
-    Sala sala1 = new Sala();
-    Sala sala2 = new Sala();
-    Sala salaCreated1 = new Sala();
-    Sala salaCreated2 = new Sala();
+    Room sala1 = new Room();
+    Room sala2 = new Room();
+    Room salaCreated1 = new Room();
+    Room salaCreated2 = new Room();
     Map<String, SEAT_STATUS>asientosMapa1 = new HashMap<>();
     Map<String, SEAT_STATUS>asientosMapa2 = new HashMap<>();
     Theatre theatre1 = new Theatre();
     Theatre theatre2 = new Theatre();
-    List<Sala> salasCine1 = new ArrayList<>();
-    List<Sala> salasCine2 = new ArrayList<>();
+    List<Room> salasCine1 = new ArrayList<>();
+    List<Room> salasCine2 = new ArrayList<>();
     User user1 = new User();
     User user2 = new User();
     Payment payment1 = new Payment();
@@ -156,7 +156,7 @@ public class ReservationGenerator {
         sala2.setId(2);
         sala2.setIdEvento(2);
         sala2.setStatus(STATUS_SALA.EN_REPARACION);
-        Sala salaCreated2 = salaRepository.save(sala2);
+        Room salaCreated2 = salaRepository.save(sala2);
         log.info("salaCreated2: " + salaCreated2);
 
         salasCine1.add(salaCreated1);
