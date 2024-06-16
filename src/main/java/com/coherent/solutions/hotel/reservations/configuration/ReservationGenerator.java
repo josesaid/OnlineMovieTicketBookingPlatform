@@ -48,7 +48,7 @@ public class ReservationGenerator {
     User user1 = new User();
     User user2 = new User();
     Payment payment1 = new Payment();
-    Evento evento1 = new Evento();
+    Event event1 = new Event();
 
     Booking bookingAquaman2 = new Booking();
     @EventListener
@@ -74,16 +74,16 @@ public class ReservationGenerator {
     }
 
     private void createEvents() {
-        evento1.setTipoEvento(TIPO_EVENTO.PELICULA);
-        evento1.setNombreEvento("Aquaman 2");
-        evento1.setHorarioInicio(LocalDateTime.of(2024, 06, 16, 16, 0));
-        evento1.setHorarioFin(LocalDateTime.of(2024, 06, 16, 18, 0));
-        evento1.setAudioIdiomaEvento("English");
-        evento1.setSubtitulosIdiomaEvento("Spanish");
-        evento1.setClassification("Science fiction");
-        evento1.setComments("NA");
-        Evento eventoCreated = eventRepository.save(evento1);
-        log.info("eventoCreated: " + eventoCreated);
+        event1.setTipoEvento(TIPO_EVENTO.PELICULA);
+        event1.setNombreEvento("Aquaman 2");
+        event1.setHorarioInicio(LocalDateTime.of(2024, 06, 16, 16, 0));
+        event1.setHorarioFin(LocalDateTime.of(2024, 06, 16, 18, 0));
+        event1.setAudioIdiomaEvento("English");
+        event1.setSubtitulosIdiomaEvento("Spanish");
+        event1.setClassification("Science fiction");
+        event1.setComments("NA");
+        Event eventCreated = eventRepository.save(event1);
+        log.info("eventoCreated: " + eventCreated);
     }
 
     private void createPayments() {
