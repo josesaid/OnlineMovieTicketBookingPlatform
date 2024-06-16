@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/theatres")
 @Slf4j
 @Tag(name = "Catalog", description = "Current Movies API")
 public class CatalogController {

@@ -15,9 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+/*
+* This class is used to manage CRUDL operations to a Theatre
+* If you want to review function requirements, then, take a look at the CatalogController and MovieController classes.
+* */
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 @Slf4j
 @Tag(name = "Theatres", description = "Theatres API")
 public class TheatreController {
@@ -32,7 +35,7 @@ public class TheatreController {
             "on the Theatres table to start to play with the app.")
     @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Theatres found",
             content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Theatre.class))})})
-    @GetMapping("/theatres")
+    @GetMapping(value={"/theatres", "/theatres/" })
     public ResponseEntity<Iterable<Theatre>> getAllTheatres() {
         Iterable<Theatre> theatreIterable = theatreService.getAllTheathres();
         return ResponseEntity.status(HttpStatus.OK).body(theatreIterable);

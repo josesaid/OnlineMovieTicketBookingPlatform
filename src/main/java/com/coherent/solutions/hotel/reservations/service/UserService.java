@@ -1,6 +1,5 @@
 package com.coherent.solutions.hotel.reservations.service;
 
-import com.coherent.solutions.hotel.reservations.entity.Reservation;
 import com.coherent.solutions.hotel.reservations.entity.User;
 import com.coherent.solutions.hotel.reservations.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
