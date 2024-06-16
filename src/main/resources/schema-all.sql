@@ -1,10 +1,4 @@
 /*MySQL Syntax*/
-CREATE TABLE RESERVATIONS (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  clientFullName VARCHAR(200) UNIQUE,
-  roomNumber INT,
-  reservationDates JSON
-);
 
 CREATE TABLE THEATRES (
   id INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,7 +54,7 @@ CREATE TABLE BOOKINGS (
   idUsuario INT,
   idPayment INT,
   comments VARCHAR(50),
-  status  VARCHAR(50)
+  status  VARCHAR(80)
 );
 
 /*
