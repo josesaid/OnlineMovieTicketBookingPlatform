@@ -143,6 +143,7 @@ public class UserController {
             message = "User ID: " + id + " removed from the DB";
             userService.removeUser(userId);
             log.info(message);
+            // Return the info about the removed resource with a 202 (ACCEPTED) status code
             return new ResponseEntity<>(new UserResponse("SUCCESS", message), HttpStatus.ACCEPTED);
         }
     }
