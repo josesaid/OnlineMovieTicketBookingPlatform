@@ -1,7 +1,7 @@
 package com.coherent.solutions.hotel.reservations.entity;
 
 import com.coherent.solutions.hotel.reservations.enums.PAYMENT_STATUS;
-import com.coherent.solutions.hotel.reservations.enums.TIPO_PAGO;
+import com.coherent.solutions.hotel.reservations.enums.PAYMENT_TYPE;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +25,7 @@ public class Payment {
 
     @Enumerated(EnumType.STRING)
     @Column(name="tipoPago")
-    private TIPO_PAGO tipoPago;
+    private PAYMENT_TYPE tipoPago;
 
     private String description;
     private String referenceDetails;

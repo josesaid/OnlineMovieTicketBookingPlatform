@@ -1,6 +1,6 @@
 package com.coherent.solutions.hotel.reservations.enums;
 
-public enum STATUS_SALA {
+public enum ROOM_STATUS {
     ABIERTA,
     CLAUSURADA,
     EN_REPARACION,

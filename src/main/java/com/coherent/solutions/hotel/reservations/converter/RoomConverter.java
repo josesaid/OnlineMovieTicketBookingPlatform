@@ -12,10 +12,10 @@ import java.util.List;
 
 @Slf4j
 @Converter(autoApply = true)
-public class SalaConverter implements AttributeConverter<List<Room>,String> {
+public class RoomConverter implements AttributeConverter<List<Room>,String> {
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public SalaConverter(){
+    public RoomConverter(){
         objectMapper.registerModule(new JavaTimeModule());
     }
 

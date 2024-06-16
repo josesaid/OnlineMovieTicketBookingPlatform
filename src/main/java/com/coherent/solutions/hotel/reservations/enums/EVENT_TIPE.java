@@ -1,6 +1,6 @@
 package com.coherent.solutions.hotel.reservations.enums;
 
-public enum TIPO_EVENTO {
+public enum EVENT_TIPE {
     PELICULA,
     SERIE,
     EVENTO_ESPECIAL,

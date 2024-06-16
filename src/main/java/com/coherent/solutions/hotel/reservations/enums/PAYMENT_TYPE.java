@@ -1,6 +1,6 @@
 package com.coherent.solutions.hotel.reservations.enums;
 
-public enum TIPO_PAGO {
+public enum PAYMENT_TYPE {
     TARJETA_CREDITO,
     TARJETA_DEBITO,
     TARJETA_VALES,

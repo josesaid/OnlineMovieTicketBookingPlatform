@@ -43,7 +43,6 @@ public class MovieController {
         movieFunctionList = new ArrayList<>();
 
         if (cityName != null && stateName != null && countryName != null) {
-            System.out.println("cityName y stateName y countryName !=null");
             movieFunctionList = movieService.getMoviesByCountryAndStateAndCity(countryName, stateName, cityName);
             bodyResponse.setNumberOfRecords(movieFunctionList.size());
             bodyResponse.setData(movieService);
@@ -51,7 +50,6 @@ public class MovieController {
         }
 
         if (stateName != null && countryName != null) {
-            System.out.println("stateName y countryName !=null");
             movieFunctionList = movieService.getMoviesByCountryAndState(countryName, stateName);
             bodyResponse.setNumberOfRecords(movieFunctionList.size());
             bodyResponse.setData(movieFunctionList);
@@ -59,7 +57,6 @@ public class MovieController {
         }
 
         if (countryName != null) {
-            System.out.println("countryName !=null");
             movieFunctionList = movieService.getMoviesByCountry(countryName);
             bodyResponse.setNumberOfRecords(movieFunctionList.size());
             bodyResponse.setData(movieFunctionList);

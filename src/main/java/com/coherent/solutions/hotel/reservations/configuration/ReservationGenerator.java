@@ -9,7 +9,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -22,7 +21,7 @@ public class ReservationGenerator {
     private TheatreRepository theatreRepository;
 
     @Autowired
-    private SalaRepository salaRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -72,7 +71,7 @@ public class ReservationGenerator {
     }
 
     private void createEvents() {
-        event1.setTipoEvento(TIPO_EVENTO.PELICULA);
+        event1.setTipoEvento(EVENT_TIPE.PELICULA);
         event1.setNombreEvento("Aquaman 2");
         event1.setHorarioInicio(LocalDateTime.of(2024, 06, 16, 16, 0));
         event1.setHorarioFin(LocalDateTime.of(2024, 06, 16, 18, 0));
@@ -87,7 +86,7 @@ public class ReservationGenerator {
     private void createPayments() {
         payment1.setAmount(254.65f);
         payment1.setTimestamp(LocalDateTime.now());
-        payment1.setTipoPago(TIPO_PAGO.TARJETA_CREDITO);
+        payment1.setTipoPago(PAYMENT_TYPE.TARJETA_CREDITO);
         payment1.setDescription("User paid with credit card online");
         payment1.setReferenceDetails("Citibank_REF1234567890");
         payment1.setStatus(PAYMENT_STATUS.CHARGED);
@@ -115,27 +114,27 @@ public class ReservationGenerator {
     private void createSalas() {
         sala1.setId(1);
         sala1.setIdEvento(1);
-        sala1.setStatus(STATUS_SALA.ABIERTA);
+        sala1.setStatus(ROOM_STATUS.ABIERTA);
 
         asientosMapa1.put("A1", SEAT_STATUS.RESERVED);
         asientosMapa1.put("A2", SEAT_STATUS.FREE);
         asientosMapa1.put("A3", SEAT_STATUS.RESERVED);
         asientosMapa1.put("A4", SEAT_STATUS.FREE);
         sala1.setAsientosMapa(asientosMapa1);
-        salaCreated1 = salaRepository.save(sala1);
+        salaCreated1 = roomRepository.save(sala1);
         log.info("salaCreated1: " + salaCreated1);
 
 
         sala2.setId(2);
         sala2.setIdEvento(2);
-        sala2.setStatus(STATUS_SALA.EN_REPARACION);
+        sala2.setStatus(ROOM_STATUS.EN_REPARACION);
 
         asientosMapa2.put("A1", SEAT_STATUS.FREE);
         asientosMapa2.put("A2", SEAT_STATUS.FREE);
         asientosMapa2.put("A3", SEAT_STATUS.FREE);
         asientosMapa2.put("A4", SEAT_STATUS.RESERVED);
         sala2.setAsientosMapa(asientosMapa2);
-        salaCreated2 = salaRepository.save(sala2);
+        salaCreated2 = roomRepository.save(sala2);
         log.info("salaCreated2: " + salaCreated2);
     }
 
@@ -149,12 +148,12 @@ public class ReservationGenerator {
 
         sala1.setId(1);
         sala1.setIdEvento(sala1.getIdEvento());
-        sala1.setStatus(STATUS_SALA.ABIERTA);
+        sala1.setStatus(ROOM_STATUS.ABIERTA);
 
         sala2.setId(2);
         sala2.setIdEvento(2);
-        sala2.setStatus(STATUS_SALA.EN_REPARACION);
-        Room salaCreated2 = salaRepository.save(sala2);
+        sala2.setStatus(ROOM_STATUS.EN_REPARACION);
+        Room salaCreated2 = roomRepository.save(sala2);
         log.info("salaCreated2: " + salaCreated2);
 
         salasCine1.add(salaCreated1);

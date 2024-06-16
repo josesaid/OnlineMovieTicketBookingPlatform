@@ -1,6 +1,6 @@
 package com.coherent.solutions.hotel.reservations.entity;
 
-import com.coherent.solutions.hotel.reservations.enums.TIPO_EVENTO;
+import com.coherent.solutions.hotel.reservations.enums.EVENT_TIPE;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -27,7 +27,7 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     @Column(name="tipoEvento")
-    private TIPO_EVENTO tipoEvento;
+    private EVENT_TIPE tipoEvento;
 
     private String nombreEvento;
 

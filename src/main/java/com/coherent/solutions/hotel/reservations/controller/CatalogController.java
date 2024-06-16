@@ -59,9 +59,6 @@ public class CatalogController {
             return bodyResponse;
         }
 
-
-
-        System.out.println("Ultimo: ");
         //Country, state and city are null, then return ALL the theatres
         for (Theatre theatre : catalogService.getAllTheatres()) {
             theatreList.add(theatre);

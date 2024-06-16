@@ -2,7 +2,7 @@ package com.coherent.solutions.hotel.reservations.service;
 
 import com.coherent.solutions.hotel.reservations.entity.Event;
 import com.coherent.solutions.hotel.reservations.entity.MovieFunction;
-import com.coherent.solutions.hotel.reservations.enums.TIPO_EVENTO;
+import com.coherent.solutions.hotel.reservations.enums.EVENT_TIPE;
 import com.coherent.solutions.hotel.reservations.helper.EventHelper;
 import com.coherent.solutions.hotel.reservations.repository.EventRepository;
 import com.coherent.solutions.hotel.reservations.repository.TheatreRepository;
@@ -33,8 +33,8 @@ public class MovieService {
 
         while (eventIterator.hasNext()) {
             Event event = eventIterator.next();
-            TIPO_EVENTO tipoEvento = event.getTipoEvento();
-            TIPO_EVENTO movie = TIPO_EVENTO.PELICULA;
+            EVENT_TIPE tipoEvento = event.getTipoEvento();
+            EVENT_TIPE movie = EVENT_TIPE.PELICULA;
             if (tipoEvento.equals(movie)) {
                 log.info("Evento PELICULA, found.");
                 movieFunctionList.add(EventHelper.assembleMovieFunction(event));
@@ -51,8 +51,8 @@ public class MovieService {
 
         while (eventIterator.hasNext()) {
             Event event = eventIterator.next();
-            TIPO_EVENTO tipoEvento = event.getTipoEvento();
-            TIPO_EVENTO movie = TIPO_EVENTO.PELICULA;
+            EVENT_TIPE tipoEvento = event.getTipoEvento();
+            EVENT_TIPE movie = EVENT_TIPE.PELICULA;
             if (tipoEvento.equals(movie)) {
                 log.info("Evento PELICULA, found.");
                 movieFunctionList.add(EventHelper.assembleMovieFunction(event));
@@ -71,8 +71,8 @@ public class MovieService {
 
         while (eventIterator.hasNext()) {
             Event event = eventIterator.next();
-            TIPO_EVENTO tipoEvento = event.getTipoEvento();
-            TIPO_EVENTO movie = TIPO_EVENTO.PELICULA;
+            EVENT_TIPE tipoEvento = event.getTipoEvento();
+            EVENT_TIPE movie = EVENT_TIPE.PELICULA;
             if (tipoEvento.equals(movie)) {
                 log.info("Evento PELICULA, found.");
                 movieFunctionList.add(EventHelper.assembleMovieFunction(event));
@@ -84,7 +84,7 @@ public class MovieService {
 
     public List<MovieFunction> getAllMovies() {
         log.info("Retrieving all the list of movies, making some magic...");
-        return EventHelper.assembleMovieFunction(eventRepository.findByTipoEvento(TIPO_EVENTO.PELICULA));
+        return EventHelper.assembleMovieFunction(eventRepository.findByTipoEvento(EVENT_TIPE.PELICULA));
     }
 
 
