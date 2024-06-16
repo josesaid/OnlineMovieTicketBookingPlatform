@@ -150,7 +150,7 @@ public class ReservationGenerator {
         theatre1.setCountry("Mexico");
 
         sala1.setId(1);
-        sala1.setIdEvento(1);
+        sala1.setIdEvento(sala1.getIdEvento());
         sala1.setStatus(STATUS_SALA.ABIERTA);
 
         sala2.setId(2);
