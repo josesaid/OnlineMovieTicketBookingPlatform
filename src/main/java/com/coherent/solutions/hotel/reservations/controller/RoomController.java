@@ -1,11 +1,8 @@
 package com.coherent.solutions.hotel.reservations.controller;
 
 import com.coherent.solutions.hotel.reservations.entity.Room;
-import com.coherent.solutions.hotel.reservations.entity.User;
 import com.coherent.solutions.hotel.reservations.response.RoomResponse;
-import com.coherent.solutions.hotel.reservations.response.UserResponse;
 import com.coherent.solutions.hotel.reservations.service.RoomService;
-import com.coherent.solutions.hotel.reservations.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -74,12 +71,11 @@ public class RoomController {
             return new ResponseEntity<>(new RoomResponse("ERROR", "Room ID: " + id + " was NOT found on the DB"), HttpStatus.NOT_FOUND);
     }
 
-    @Operation(summary = "Updates a room",
-            description = "This method updates a room object from the database.")
+    @Operation(summary = "Updates a room", description = "This method updates a room object from the database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Room updated",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Room.class)) }),
-            @ApiResponse(responseCode = "404", description = "User not found",
+            @ApiResponse(responseCode = "404", description = "Room not found",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Room.class)) }),
             @ApiResponse(responseCode = "400", description = "Bad request is returned if the info has a wrong format.",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Room.class)) })
@@ -135,7 +131,7 @@ public class RoomController {
         }catch(NumberFormatException e){
             message = "Room ID has an incorrect format: " + roomId;
             log.error(message);
-            return new ResponseEntity<>(new UserResponse("ERROR", message), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new RoomResponse("ERROR", message), HttpStatus.BAD_REQUEST);
         }
         Optional<Room> roomOptional = roomService.getRoom(Integer.parseInt(id));
         if(!roomOptional.isPresent()) {

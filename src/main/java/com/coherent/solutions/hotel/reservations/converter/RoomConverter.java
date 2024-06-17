@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
+/*
+    This class is used to convert the information coming from Room class to the database as a tool mapper and vice-versa.
+* */
 @Slf4j
 @Converter(autoApply = true)
 public class RoomConverter implements AttributeConverter<List<Room>,String> {
@@ -20,24 +23,24 @@ public class RoomConverter implements AttributeConverter<List<Room>,String> {
     }
 
     @Override
-    public String convertToDatabaseColumn(List<Room> salasList) {
-        String salasJSON = null;
+    public String convertToDatabaseColumn(List<Room> roomsList) {
+        String roomsJSON = null;
         try{
-            salasJSON = objectMapper.writeValueAsString(salasList);
+            roomsJSON = objectMapper.writeValueAsString(roomsList);
         }catch(Exception e){
             log.error("JSON Writing error", e);
         }
-        return salasJSON;
+        return roomsJSON;
     }
 
-    public List<Room> convertToEntityAttribute(String salasJSON) {
-        List<Room> salasList = null;
+    public List<Room> convertToEntityAttribute(String roomsJSON) {
+        List<Room> roomsList = null;
         try {
-            salasList = objectMapper.readValue(salasJSON, new TypeReference<>() {});
+            roomsList = objectMapper.readValue(roomsJSON, new TypeReference<>() {});
         } catch (final Exception e) {
             log.error("JSON reading error", e);
         }
-        return salasList;
+        return roomsList;
     }
 
 }

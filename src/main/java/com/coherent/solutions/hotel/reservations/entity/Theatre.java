@@ -24,7 +24,7 @@ public class Theatre {
     private String country;
 
     @Convert(converter = RoomConverter.class)
-    private List<Room>Salas;
+    private List<Room> rooms;
 }
 
 

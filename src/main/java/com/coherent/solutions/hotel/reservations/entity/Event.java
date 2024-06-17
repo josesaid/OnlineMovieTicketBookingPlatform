@@ -26,25 +26,25 @@ public class Event {
     private int id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="tipoEvento")
-    private EVENT_TIPE tipoEvento;
+    @Column(name="eventType")
+    private EVENT_TIPE eventType;
 
-    private String nombreEvento;
-
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime horarioInicio;
+    private String eventName;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime horarioFin;
+    private LocalDateTime initTime;
 
-    private String audioIdiomaEvento;
-    private String subtitulosIdiomaEvento;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime finishTime;
+
+    private String eventAudioLanguage;
+    private String eventSubtitleLanguage;
     private String classification;
     private String comments;
 }

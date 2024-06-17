@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-
+/*
+    Top Level class in the Response body hierarchy level when we want to send a message to the user in the
+    response body. The other classes located at same level of this one, extend from BaseResponse.
+*/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

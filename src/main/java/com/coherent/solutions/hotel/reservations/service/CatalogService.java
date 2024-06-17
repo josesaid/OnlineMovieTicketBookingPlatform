@@ -7,7 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/*
+    This service class is used by the CatalogController to retrieve all the cinemas/theatres filtering them by:
+    1.- Country
+    2.- Country and State
+    3.- Country, State and City
+    4-. None, then it returns all the cinemas/theatres.
+*/
 @Slf4j
 @Service
 public class CatalogService {

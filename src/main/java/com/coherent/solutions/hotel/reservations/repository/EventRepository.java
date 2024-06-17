@@ -9,8 +9,7 @@ import java.util.List;
 
 @Repository
 public interface EventRepository extends CrudRepository<Event, Integer> {
-
-    List<Event> findByTipoEvento(EVENT_TIPE tipoEvento);
+    List<Event> findByEventType(EVENT_TIPE eventType);
 
 }
 

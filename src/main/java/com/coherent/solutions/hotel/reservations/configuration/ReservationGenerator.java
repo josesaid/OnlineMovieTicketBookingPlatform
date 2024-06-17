@@ -15,11 +15,8 @@ import java.util.*;
 @Component
 @Slf4j
 public class ReservationGenerator {
-
-
     @Autowired
     private TheatreRepository theatreRepository;
-
     @Autowired
     private RoomRepository roomRepository;
 
@@ -33,16 +30,16 @@ public class ReservationGenerator {
     @Autowired
     private BookingRepository bookingRepository;
 
-    Room sala1 = new Room();
-    Room sala2 = new Room();
-    Room salaCreated1 = new Room();
-    Room salaCreated2 = new Room();
-    Map<String, SEAT_STATUS>asientosMapa1 = new HashMap<>();
-    Map<String, SEAT_STATUS>asientosMapa2 = new HashMap<>();
+    Room room1 = new Room();
+    Room room02 = new Room();
+    Room roomCreated01 = new Room();
+    Room roomCreated2 = new Room();
+    Map<String, SEAT_STATUS> seatsMap01 = new HashMap<>();
+    Map<String, SEAT_STATUS> seatsMap02 = new HashMap<>();
     Theatre theatre1 = new Theatre();
     Theatre theatre2 = new Theatre();
-    List<Room> salasCine1 = new ArrayList<>();
-    List<Room> salasCine2 = new ArrayList<>();
+    List<Room> roomTheatre1 = new ArrayList<>();
+    List<Room> roomTheatre2 = new ArrayList<>();
     User user1 = new User();
     User user2 = new User();
     Payment payment1 = new Payment();
@@ -52,7 +49,7 @@ public class ReservationGenerator {
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
         createTheatres();
-        createSalas();
+        createRooms();
         createUsers();
         createPayments();
         createEvents();
@@ -60,8 +57,8 @@ public class ReservationGenerator {
     }
 
     private void createBooking() {
-        bookingAquaman2.setIdSala(sala1.getId());
-        bookingAquaman2.setIdUsuario(user1.getId());
+        bookingAquaman2.setIdRoom(room1.getId());
+        bookingAquaman2.setIdUser(user1.getId());
         bookingAquaman2.setIdTheatre(theatre1.getId());
         bookingAquaman2.setIdPayment(payment1.getId());
         bookingAquaman2.setComments("NA");
@@ -71,22 +68,22 @@ public class ReservationGenerator {
     }
 
     private void createEvents() {
-        event1.setTipoEvento(EVENT_TIPE.PELICULA);
-        event1.setNombreEvento("Aquaman 2");
-        event1.setHorarioInicio(LocalDateTime.of(2024, 06, 16, 16, 0));
-        event1.setHorarioFin(LocalDateTime.of(2024, 06, 16, 18, 0));
-        event1.setAudioIdiomaEvento("English");
-        event1.setSubtitulosIdiomaEvento("Spanish");
+        event1.setEventType(EVENT_TIPE.PELICULA);
+        event1.setEventName("Aquaman 2");
+        event1.setInitTime(LocalDateTime.of(2024, 06, 16, 16, 0));
+        event1.setFinishTime(LocalDateTime.of(2024, 06, 16, 18, 0));
+        event1.setEventAudioLanguage("English");
+        event1.setEventSubtitleLanguage("Spanish");
         event1.setClassification("Science fiction");
         event1.setComments("NA");
         Event eventCreated = eventRepository.save(event1);
-        log.info("eventoCreated: " + eventCreated);
+        log.info("eventCreated: " + eventCreated);
     }
 
     private void createPayments() {
         payment1.setAmount(254.65f);
         payment1.setTimestamp(LocalDateTime.now());
-        payment1.setTipoPago(PAYMENT_TYPE.TARJETA_CREDITO);
+        payment1.setPaymentType(PAYMENT_TYPE.TARJETA_CREDITO);
         payment1.setDescription("User paid with credit card online");
         payment1.setReferenceDetails("Citibank_REF1234567890");
         payment1.setStatus(PAYMENT_STATUS.CHARGED);
@@ -111,31 +108,31 @@ public class ReservationGenerator {
     }
 
 
-    private void createSalas() {
-        sala1.setId(1);
-        sala1.setIdEvento(1);
-        sala1.setStatus(ROOM_STATUS.ABIERTA);
+    private void createRooms() {
+        room1.setId(1);
+        room1.setIdEvent(1);
+        room1.setStatus(ROOM_STATUS.ABIERTA);
 
-        asientosMapa1.put("A1", SEAT_STATUS.RESERVED);
-        asientosMapa1.put("A2", SEAT_STATUS.FREE);
-        asientosMapa1.put("A3", SEAT_STATUS.RESERVED);
-        asientosMapa1.put("A4", SEAT_STATUS.FREE);
-        sala1.setAsientosMapa(asientosMapa1);
-        salaCreated1 = roomRepository.save(sala1);
-        log.info("salaCreated1: " + salaCreated1);
+        seatsMap01.put("A1", SEAT_STATUS.RESERVED);
+        seatsMap01.put("A2", SEAT_STATUS.FREE);
+        seatsMap01.put("A3", SEAT_STATUS.RESERVED);
+        seatsMap01.put("A4", SEAT_STATUS.FREE);
+        room1.setSeatsMap(seatsMap01);
+        roomCreated01 = roomRepository.save(room1);
+        log.info("roomCreated01: " + roomCreated01);
 
 
-        sala2.setId(2);
-        sala2.setIdEvento(2);
-        sala2.setStatus(ROOM_STATUS.EN_REPARACION);
+        room02.setId(2);
+        room02.setIdEvent(2);
+        room02.setStatus(ROOM_STATUS.EN_REPARACION);
 
-        asientosMapa2.put("A1", SEAT_STATUS.FREE);
-        asientosMapa2.put("A2", SEAT_STATUS.FREE);
-        asientosMapa2.put("A3", SEAT_STATUS.FREE);
-        asientosMapa2.put("A4", SEAT_STATUS.RESERVED);
-        sala2.setAsientosMapa(asientosMapa2);
-        salaCreated2 = roomRepository.save(sala2);
-        log.info("salaCreated2: " + salaCreated2);
+        seatsMap02.put("A1", SEAT_STATUS.FREE);
+        seatsMap02.put("A2", SEAT_STATUS.FREE);
+        seatsMap02.put("A3", SEAT_STATUS.FREE);
+        seatsMap02.put("A4", SEAT_STATUS.RESERVED);
+        room02.setSeatsMap(seatsMap02);
+        roomCreated2 = roomRepository.save(room02);
+        log.info("roomCreated2: " + roomCreated2);
     }
 
     private void createTheatres() {
@@ -146,19 +143,19 @@ public class ReservationGenerator {
         theatre1.setState("Jalisco");
         theatre1.setCountry("Mexico");
 
-        sala1.setId(1);
-        sala1.setIdEvento(sala1.getIdEvento());
-        sala1.setStatus(ROOM_STATUS.ABIERTA);
+        room1.setId(1);
+        room1.setIdEvent(room1.getIdEvent());
+        room1.setStatus(ROOM_STATUS.ABIERTA);
 
-        sala2.setId(2);
-        sala2.setIdEvento(2);
-        sala2.setStatus(ROOM_STATUS.EN_REPARACION);
-        Room salaCreated2 = roomRepository.save(sala2);
-        log.info("salaCreated2: " + salaCreated2);
+        room02.setId(2);
+        room02.setIdEvent(2);
+        room02.setStatus(ROOM_STATUS.EN_REPARACION);
+        Room roomCreated2 = roomRepository.save(room02);
+        log.info("roomCreated2: " + roomCreated2);
 
-        salasCine1.add(salaCreated1);
-        salasCine1.add(salaCreated2);
-        theatre1.setSalas(salasCine1);
+        roomTheatre1.add(roomCreated01);
+        roomTheatre1.add(roomCreated2);
+        theatre1.setRooms(roomTheatre1);
 
         Theatre theatreCreated = theatreRepository.save(theatre1);
         log.info("theatreCreated: " +theatreCreated);
@@ -168,7 +165,7 @@ public class ReservationGenerator {
         theatre2.setCity("GDL");
         theatre2.setState("Jalisco");
         theatre2.setCountry("Mexico");
-        theatre2.setSalas(salasCine1);
+        theatre2.setRooms(roomTheatre1);
 
         Theatre theatreCreated2 = theatreRepository.save(theatre2);
         log.info("theatreCreated2: " +theatreCreated2);

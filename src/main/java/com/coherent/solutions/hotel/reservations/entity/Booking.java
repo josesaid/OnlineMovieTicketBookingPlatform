@@ -18,8 +18,8 @@ public class Booking{
     private int id;
 
     private int idTheatre;
-    private int idSala;
-    private int idUsuario;
+    private int idRoom;
+    private int idUser;
     private int idPayment;
     private String comments;
 

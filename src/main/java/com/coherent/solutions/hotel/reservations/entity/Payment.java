@@ -25,7 +25,7 @@ public class Payment {
 
     @Enumerated(EnumType.STRING)
     @Column(name="tipoPago")
-    private PAYMENT_TYPE tipoPago;
+    private PAYMENT_TYPE paymentType;
 
     private String description;
     private String referenceDetails;

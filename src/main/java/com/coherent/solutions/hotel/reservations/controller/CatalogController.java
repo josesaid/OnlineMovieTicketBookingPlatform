@@ -16,10 +16,8 @@ import java.util.List;
 @Tag(name = "Catalog", description = "Current Movies API")
 public class CatalogController {
     private final CatalogService catalogService;
-
     private BodyResponse bodyResponse;
     private List<Theatre> theatreList;
-
     public CatalogController(CatalogService catalogService) {
         this.catalogService = catalogService;
     }

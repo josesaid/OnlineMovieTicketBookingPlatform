@@ -13,7 +13,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+/*
+    This Movie Service lets retrieve all the movies, by taking into account the next criterias:
+    1. Filter the movies by Country.
+    2. Filter the movies by Country and State.
+    3. Filter the movies by Country, State and City.
+    4. No filter anything, it returns all the existing movies.
+* */
 @Slf4j
 @Service
 public class MovieService {
@@ -33,7 +39,7 @@ public class MovieService {
 
         while (eventIterator.hasNext()) {
             Event event = eventIterator.next();
-            EVENT_TIPE tipoEvento = event.getTipoEvento();
+            EVENT_TIPE tipoEvento = event.getEventType();
             EVENT_TIPE movie = EVENT_TIPE.PELICULA;
             if (tipoEvento.equals(movie)) {
                 log.info("Evento PELICULA, found.");
@@ -51,7 +57,7 @@ public class MovieService {
 
         while (eventIterator.hasNext()) {
             Event event = eventIterator.next();
-            EVENT_TIPE tipoEvento = event.getTipoEvento();
+            EVENT_TIPE tipoEvento = event.getEventType();
             EVENT_TIPE movie = EVENT_TIPE.PELICULA;
             if (tipoEvento.equals(movie)) {
                 log.info("Evento PELICULA, found.");
@@ -71,7 +77,7 @@ public class MovieService {
 
         while (eventIterator.hasNext()) {
             Event event = eventIterator.next();
-            EVENT_TIPE tipoEvento = event.getTipoEvento();
+            EVENT_TIPE tipoEvento = event.getEventType();
             EVENT_TIPE movie = EVENT_TIPE.PELICULA;
             if (tipoEvento.equals(movie)) {
                 log.info("Evento PELICULA, found.");
@@ -84,7 +90,7 @@ public class MovieService {
 
     public List<MovieFunction> getAllMovies() {
         log.info("Retrieving all the list of movies, making some magic...");
-        return EventHelper.assembleMovieFunction(eventRepository.findByTipoEvento(EVENT_TIPE.PELICULA));
+        return EventHelper.assembleMovieFunction(eventRepository.findByEventType(EVENT_TIPE.PELICULA));
     }
 
 

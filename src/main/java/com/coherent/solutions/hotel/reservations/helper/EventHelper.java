@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Slf4j
@@ -17,26 +18,14 @@ import java.util.List;
 public class EventHelper {
 
     public final  TheatreRepository theatreRepository;
-
     private final EventRepository eventRepository;
-
     public EventHelper(TheatreRepository theatreRepository,EventRepository eventRepository ) {
         this.theatreRepository = theatreRepository;
         this.eventRepository = eventRepository;
     }
-
     public static MovieFunction assembleMovieFunction(Event event) {
-        MovieFunction movieFunction = new MovieFunction();
-        movieFunction.setIdEvent(event.getId());
-        movieFunction.setMovieName(event.getNombreEvento());
-        movieFunction.setAudioIdiomaName(event.getAudioIdiomaEvento());
-        movieFunction.setSubtitulosIdiomaName(event.getSubtitulosIdiomaEvento());
-        movieFunction.setClassification(event.getClassification());
-        movieFunction.setHorarioInicio(event.getHorarioInicio());
-        movieFunction.setHorarioFin(event.getHorarioFin());
-        return movieFunction;
+        return MovieFunctionHelper.assembleMovieFunction(event);
     }
-
     public static List<MovieFunction> assembleMovieFunction(List<Event> eventList) {
         List<MovieFunction> movieFunctionList = new ArrayList<>();
         for(Event event : eventList){
@@ -44,72 +33,31 @@ public class EventHelper {
         }
         return movieFunctionList;
     }
-
     public Iterable<Event> getEventsByCountry(String country) {
-        List<Integer> idEvents = new ArrayList<>();
-        //Filter theatres by country:
         List<Theatre> theatreList = theatreRepository.findByCountry(country);
-        for (Theatre theare : theatreList) {
-            //For each theatre, retrieve its rooms:
-            List<Room> rooms = theare.getSalas();
-
-            for (Room room : rooms) {
-                //For each room, retrieve the event id and save it temporarily, to look for it at the next step...
-                idEvents.add(room.getIdEvento());
-                log.info("ID EVENT Detected for country:" + country + ": " + room.getIdEvento());
-            }
-        }
-        //Now, with all the events that match for the given country, we can filter by anything we wish:
-        //This might be, filtering by:
-        //nombreEvento, tipo de Evento, horarios, audio idioma evento, classificacion del evento, subtitulos idioma evento
-
-        //Let's filter the events, first to match the wished ones.
-        return eventRepository.findAllById(idEvents);
-
+        return method(theatreList, new ArrayList<>());
     }
 
     public Iterable<Event> getEventsByCountryAndState(String countryName, String stateName) {
-        List<Integer> idEvents = new ArrayList<>();
-
-        //Filter theatres by country and state
         List<Theatre> theatreList = theatreRepository.findByCountryAndState(countryName, stateName);
-        for (Theatre theare : theatreList) {
-            //For each theatre, retrieve its rooms:
-            List<Room> rooms = theare.getSalas();
-
-            for (Room room : rooms) {
-                //For each room, retrieve the event id and save it temporarily, to look for it at the next step...
-                idEvents.add(room.getIdEvento());
-                log.info("ID EVENT Detected: " + room.getIdEvento()+ " for country:" + countryName + " AND STATE: " + stateName);
-            }
-        }
-        //Now, with all the events that match for the given country, we can filter by anything we wish:
-        //This might be, filtering by:
-        //nombreEvento, tipo de Evento, horarios, audio idioma evento, classificacion del evento, subtitulos idioma evento
-
-        //Let's filter the events, first to match the wished ones.
-        return eventRepository.findAllById(idEvents);
+        return method(theatreList, new ArrayList<>());
     }
 
     public Iterable<Event> getEventsByCountryAndStateAndCity(String countryName, String stateName, String cityName) {
-        List<Integer> idEvents = new ArrayList<>();
-
-        //Filter theatres by country, state and city:
         List<Theatre> theatreList = theatreRepository.findByCountryAndStateAndCity(countryName, stateName, cityName);
-        for (Theatre theare : theatreList) {
-            //For each theatre, retrieve its rooms:
-            List<Room> rooms = theare.getSalas();
+        return method(theatreList, new ArrayList<>());
+    }
 
-            for (Room room : rooms) {
-                //For each room, retrieve the event id and save it temporarily, to look for it at the next step...
-                idEvents.add(room.getIdEvento());
-                log.info("ID EVENT Detected: " + room.getIdEvento()+ " for country:" + countryName + " AND STATE: " + stateName+" and City: " + cityName);
-            }
-        }
+    private Iterable<Event> method(List<Theatre> theatreList, List<Integer> idEvents){
+        //For each theatre, retrieve its rooms. For each room, retrieve the event id and save it temporarily;
+        // look for it at the next step...
+        theatreList.stream().map(Theatre::getRooms).flatMap(Collection::stream).forEachOrdered(room -> {
+            idEvents.add(room.getIdEvent());
+            log.info("ID EVENT Detected: " + room.getIdEvent());
+        });
         //Now, with all the events that match for the given country, we can filter by anything we wish:
         //This might be, filtering by:
-        //nombreEvento, tipo de Evento, horarios, audio idioma evento, classificacion del evento, subtitulos idioma evento
-
+        //eventName, eventType, initTime, classification, etc.
         //Let's filter the events, first to match the wished ones.
         return eventRepository.findAllById(idEvents);
     }

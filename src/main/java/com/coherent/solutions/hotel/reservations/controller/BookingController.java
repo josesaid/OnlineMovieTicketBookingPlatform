@@ -159,7 +159,7 @@ public class BookingController {
         try{
             bookingId = Integer.parseInt(id);
         }catch(NumberFormatException e){
-            message = "User ID has an incorrect format: " + bookingId;
+            message = "Booking ID has an incorrect format: " + bookingId;
             log.error(message);
             return new ResponseEntity<>(new BookingResponse("ERROR", message), HttpStatus.BAD_REQUEST);
         }

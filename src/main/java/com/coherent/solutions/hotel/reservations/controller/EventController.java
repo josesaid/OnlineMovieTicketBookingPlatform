@@ -1,9 +1,7 @@
 package com.coherent.solutions.hotel.reservations.controller;
 
 import com.coherent.solutions.hotel.reservations.entity.Event;
-import com.coherent.solutions.hotel.reservations.entity.User;
 import com.coherent.solutions.hotel.reservations.response.EventResponse;
-import com.coherent.solutions.hotel.reservations.response.UserResponse;
 import com.coherent.solutions.hotel.reservations.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -43,7 +41,7 @@ public class EventController {
     @Operation(summary = "Creates an event in the database.",
             description = "This method generates an event entry at the MySQL AWS database instance")
     @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Event created",
-            content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class))})})
+            content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class))})})
     @PostMapping("/events")
     public ResponseEntity<Event> create(@RequestBody Event event){
         Event eventCreated = eventService.createEvent(event);
@@ -52,10 +50,10 @@ public class EventController {
 
     @Operation(summary = "Retrieves an event", description = "This method lets to retrieve an event from the database.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User gotten",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) }),
+            @ApiResponse(responseCode = "200", description = "Event gotten",
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
             @ApiResponse(responseCode = "400", description = "Bad request is returned if the info has a wrong format.",
-                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = User.class)) })
+                    content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) })
     })
     @GetMapping("/events/{id}")
     public ResponseEntity<Object> getEvent(@PathVariable String id) {
@@ -64,7 +62,7 @@ public class EventController {
         }catch(NumberFormatException e){
             String message = "EVENT ID has an incorrect format: " + id;
             log.error(message);
-            return new ResponseEntity<>(new UserResponse("ERROR", message), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new EventResponse("ERROR", message), HttpStatus.BAD_REQUEST);
         }
         Optional<Event> eventOptional = eventService.getEvent(Integer.parseInt(id));
         if(eventOptional.isPresent())
@@ -78,7 +76,7 @@ public class EventController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Event updated",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
-            @ApiResponse(responseCode = "404", description = "User not found",
+            @ApiResponse(responseCode = "404", description = "Event not found",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) }),
             @ApiResponse(responseCode = "400", description = "Bad request is returned if the info has a wrong format.",
                     content = { @Content(mediaType = "application/json", schema = @Schema(implementation = Event.class)) })

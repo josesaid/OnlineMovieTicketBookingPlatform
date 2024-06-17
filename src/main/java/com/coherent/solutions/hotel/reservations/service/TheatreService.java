@@ -28,7 +28,7 @@ public class TheatreService {
     }
 
     public Optional<Theatre> getTheatre(int theatreId) {
-        log.info("Retrieving an user");
+        log.info("Retrieving an Theatre");
         Optional<Theatre> theatreOptional = theatreRepository.findById(theatreId);
         return theatreOptional;
     }

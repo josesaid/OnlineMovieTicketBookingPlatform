@@ -66,22 +66,19 @@ public class BookingService {
             }
         }
 
-        //---- Change status to cancelled on the selected ones
+        //---- Change status to cancelled on the selected ones (only the ones who are present, taking advantage of
+        // the Java Optional functionality/feature).
         for(Integer bookingID :cancelBookingResult.getBookingIDsUpdated()){
             log.warn("Cancelling booking ID: " + bookingID);
             Optional<Booking> bookingOptional = bookingRepository.findById(bookingID);
             if(bookingOptional.isPresent()){
-                System.out.println("IF...");
                 Booking booking = bookingOptional.get();
-                System.out.println("booking: " + booking);
                 booking.setId(bookingID);
                 booking.setStatus(BOOKING_STATUS.CANCELED);
                 bookingRepository.save(booking);
-            }else{
-                System.out.println("ELSE");
             }
         }
-        //----
+
         return cancelBookingResult;
     }
 
